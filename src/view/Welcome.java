@@ -8,8 +8,6 @@ import javax.swing.JPopupMenu;
 import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.JMenu;
-import javax.swing.JButton;
 
 public class Welcome {
 

@@ -38,6 +38,7 @@ public class Transaction {
 		String data = StringUtil.getStringFromKey(sender) + StringUtil.getStringFromKey(reciepient) + Float.toString(value)	;
 		signature = StringUtil.applyECDSASig(privateKey,data);		
 	}
+	
 	//Verifies the data we signed hasnt been tampered with
 	public boolean verifiySignature() {
 		String data = StringUtil.getStringFromKey(sender) + StringUtil.getStringFromKey(reciepient) + Float.toString(value)	;
@@ -84,7 +85,7 @@ public class Transaction {
 		}
 		
 	//returns sum of inputs(UTXOs) values
-		public float getInputsValue() {
+	public float getInputsValue() {
 			float total = 0;
 			for(TransactionInput i : inputs) {
 				if(i.UTXO == null) continue; //if Transaction can't be found skip it 
@@ -94,7 +95,7 @@ public class Transaction {
 		}
 
 	//returns sum of outputs:
-		public float getOutputsValue() {
+	public float getOutputsValue() {
 			float total = 0;
 			for(TransactionOutput o : outputs) {
 				total += o.value;

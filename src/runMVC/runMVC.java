@@ -24,7 +24,7 @@ public class runMVC {
 		Wallet coinbase = new Wallet();
 		
 		//create genesis transaction, which sends 100 NoobCoin to walletA: 
-		BlockChain.genesisTransaction = new Transaction(coinbase.publicKey, BlockChain.getWallet().get(0).publicKey, 100f, null);
+		BlockChain.genesisTransaction = new Transaction(coinbase.publicKey, BlockChain.getWallet().get(0).publicKey, 900f, null);
 		BlockChain.genesisTransaction.generateSignature(coinbase.privateKey);	 //manually sign the genesis transaction	
 		BlockChain.genesisTransaction.transactionId = "0"; //manually set the transaction id
 		BlockChain.genesisTransaction.outputs.add(new TransactionOutput(BlockChain.genesisTransaction.reciepient, BlockChain.genesisTransaction.value, BlockChain.genesisTransaction.transactionId)); //manually add the Transactions Output
@@ -55,9 +55,11 @@ public class runMVC {
 		
 		Block block3 = new Block(block2.hash);
 		System.out.println("\nWalletB is Attempting to send funds (20) to WalletA...");
-		block3.addTransaction(BlockChain.getWallet().get(1).sendFunds( BlockChain.getWallet().get(0).publicKey, 20));
+		block3.addTransaction(BlockChain.getWallet().get(1).sendFunds( BlockChain.getWallet().get(0).publicKey, 20f));
+		BlockChain.addBlock(block3);
 		System.out.println("\nWalletA's balance is: " + BlockChain.getWallet().get(0).getBalance());
 		System.out.println("WalletB's balance is: " + BlockChain.getWallet().get(1).getBalance());
+
 		
 		Controller.setBlockchain(BlockChain);
 		
