@@ -8,6 +8,7 @@ import java.util.Map;
 public class Wallet {
 	public PrivateKey privateKey;
 	public PublicKey publicKey;
+	private String ID;
 	
 	public HashMap<String,TransactionOutput> UTXOs = new HashMap<String,TransactionOutput>(); //only UTXOs owned by this wallet.
 
@@ -32,8 +33,8 @@ public class Wallet {
 		}
 }
 
-	  //returns balance and stores the UTXO's owned by this wallet in this.UTXOs
-		public float getBalance() {
+	 //returns balance and stores the UTXO's owned by this wallet in this.UTXOs
+	public float getBalance() {
 			float total = 0;	
 	        for (Map.Entry<String, TransactionOutput> item: NewBlockChain.UTXOs.entrySet()){
 	        	TransactionOutput UTXO = item.getValue();
@@ -44,8 +45,9 @@ public class Wallet {
 	        }  
 			return total;
 		}
-		//Generates and returns a new transaction from this wallet.
-		public Transaction sendFunds(PublicKey _recipient,float value ) {
+		
+	//Generates and returns a new transaction from this wallet.
+	public Transaction sendFunds(PublicKey _recipient,float value ) {
 			if(getBalance() < value) { //gather balance and check funds.
 				System.out.println("#Not Enough funds to send transaction. Transaction Discarded.");
 				return null;
@@ -69,4 +71,12 @@ public class Wallet {
 			}
 			return newTransaction;
 	}
+
+	public String getID() {
+			return ID;
+		}
+
+	public void setID(String id) {
+			ID = id;
+		}
 }

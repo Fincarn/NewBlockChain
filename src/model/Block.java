@@ -1,7 +1,6 @@
 package model;
 import java.util.ArrayList;
 import java.util.Date;
-import java.security.MessageDigest;
 
 public class Block {
 
