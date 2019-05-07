@@ -22,9 +22,9 @@ public class NewBlockChainController {
 	
 	public void transfer(Wallet Sender, Wallet Reciver, Float value) {
 		
-		int index=Blockchain.blockchain.size()-1;
+		int index=Blockchain.getBlock().size()-1;
 		
-		Block block = new Block(Blockchain.blockchain.get(index).hash);
+		Block block = new Block(Blockchain.getBlock().get(index).hash);
 		block.addTransaction(Sender.sendFunds( Reciver.publicKey, value));
 		Blockchain.addBlock(block);
 		System.out.println("\nWalletA's balance is: " + Sender.getBalance());

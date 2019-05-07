@@ -27,7 +27,7 @@ public class runMVC {
 		BlockChain.genesisTransaction = new Transaction(coinbase.publicKey, BlockChain.getWallet().get(0).publicKey, 900f, null);
 		BlockChain.genesisTransaction.generateSignature(coinbase.privateKey);	 //manually sign the genesis transaction	
 		BlockChain.genesisTransaction.transactionId = "0"; //manually set the transaction id
-		BlockChain.genesisTransaction.outputs.add(new TransactionOutput(BlockChain.genesisTransaction.reciepient, BlockChain.genesisTransaction.value, BlockChain.genesisTransaction.transactionId)); //manually add the Transactions Output
+		BlockChain.genesisTransaction.outputs.add(new TransactionOutput(BlockChain.genesisTransaction.reciepient, BlockChain.genesisTransaction.getValue(), BlockChain.genesisTransaction.transactionId)); //manually add the Transactions Output
 		BlockChain.UTXOs.put(BlockChain.genesisTransaction.outputs.get(0).id, BlockChain.genesisTransaction.outputs.get(0)); //its important to store our first transaction in the UTXOs list.
 		
 		System.out.println("Creating and Mining Genesis block... ");
@@ -48,7 +48,7 @@ public class runMVC {
 		
 		Block block2 = new Block(block1.hash);
 		System.out.println("\nWalletA Attempting to send more funds (1000) than it has...");
-		block2.addTransaction(BlockChain.getWallet().get(0).sendFunds(BlockChain.getWallet().get(1).publicKey, 1000f));
+		block2.addTransaction(BlockChain.getWallet().get(0).sendFunds(BlockChain.getWallet().get(1).publicKey, 5f));
 		BlockChain.addBlock(block2);
 		System.out.println("\nWalletA's balance is: " + BlockChain.getWallet().get(0).getBalance());
 		System.out.println("WalletB's balance is: " + BlockChain.getWallet().get(1).getBalance());

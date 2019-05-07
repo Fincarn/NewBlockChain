@@ -5,7 +5,10 @@ import java.util.HashMap;
 
 public class NewBlockChain {
 
-	public  ArrayList<Block> blockchain = new ArrayList<Block>();
+	private  ArrayList<Block> blockchain = new ArrayList<Block>();
+
+
+
 	private  ArrayList<Wallet> wallet=new ArrayList<Wallet>();
 	public  int difficulty = 3;
 	public  Transaction genesisTransaction;
@@ -31,8 +34,8 @@ public class NewBlockChain {
 			currentBlock = blockchain.get(i);
 			previousBlock = blockchain.get(i-1);
 
-			System.out.println(" Block: "+ (i-1) +" info: "+previousBlock.transactions.size());
-			System.out.println(" Block: "+ i +" info: "+currentBlock.transactions.size());
+			System.out.println(" Block: "+ (i-1) +" info: "+previousBlock.getTransactions().size());
+			System.out.println(" Block: "+ i +" info: "+currentBlock.getTransactions().size());
 								
 			//compare registered hash and calculated hash:
 			if(!currentBlock.hash.equals(currentBlock.calculateHash()) ){
@@ -52,8 +55,8 @@ public class NewBlockChain {
 			
 			//loop thru blockchains transactions:
 			TransactionOutput tempOutput;
-			for(int t=0; t <currentBlock.transactions.size(); t++) {
-				Transaction currentTransaction = currentBlock.transactions.get(t);
+			for(int t=0; t <currentBlock.getTransactions().size(); t++) {
+				Transaction currentTransaction = currentBlock.getTransactions().get(t);
 				
 				if(!currentTransaction.verifiySignature()) {
 					System.out.println("#Signature on Transaction(" + t + ") is Invalid");
@@ -116,9 +119,16 @@ public class NewBlockChain {
 		wallet.add(NewWallet);
 	}
 
-
 	public ArrayList<Wallet> getWallet() {
 		return wallet;
+	}
+	
+	public ArrayList<Block> getBlock() {
+		return blockchain;
+	}
+
+	public void setBlock(ArrayList<Block> blockchain) {
+		this.blockchain = blockchain;
 	}
 	
 }

@@ -7,7 +7,9 @@ public class Transaction {
 	public String transactionId; // this is also the hash of the transaction.
 	public PublicKey sender; // senders address/public key.
 	public PublicKey reciepient; // Recipients address/public key.
-	public float value;
+	private float value;
+
+
 	public byte[] signature; // this is to prevent anybody else from spending funds in our wallet.
 	
 	public ArrayList<TransactionInput> inputs = new ArrayList<TransactionInput>();
@@ -101,5 +103,13 @@ public class Transaction {
 				total += o.value;
 			}
 			return total;
+	}
+	
+	public float getValue() {
+		return value;
+	}
+
+	public void setValue(float value) {
+		this.value = value;
 	}
 }

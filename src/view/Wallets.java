@@ -26,11 +26,11 @@ public class Wallets {
 	
 	public Wallets(NewBlockChainController Controller) {
 		this.Controller = Controller;
-		System.out.println("Hay Bloques: "+ Controller.getBlockchain().blockchain.size());
-		System.out.println(" Bloques 1: "+ Controller.getBlockchain().blockchain.get(0).transactions.get(0).value);
-		System.out.println(" Bloques 2: "+ Controller.getBlockchain().blockchain.get(1).transactions.get(0).value);
-		System.out.println(" Bloques 3: "+ Controller.getBlockchain().blockchain.get(2));
-		System.out.println(" Bloques 4: "+ Controller.getBlockchain().blockchain.get(3).transactions.get(0).value);
+		System.out.println("Hay Bloques: "+ Controller.getBlockchain().getBlock().size());
+		System.out.println(" Bloques 1: "+ Controller.getBlockchain().getBlock().get(0).getTransactions().get(0).getValue());
+		System.out.println(" Bloques 2: "+ Controller.getBlockchain().getBlock().get(1).getTransactions().get(0).getValue());
+		System.out.println(" Bloques 3: "+ Controller.getBlockchain().getBlock().get(2));
+		System.out.println(" Bloques 4: "+ Controller.getBlockchain().getBlock().get(3).getTransactions().get(0).getValue());
 		initialize();
 	}
 	/**
