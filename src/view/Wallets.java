@@ -97,7 +97,6 @@ public class Wallets {
 				if(!textField.getText().isEmpty()) {
 					System.out.println("El valor dentro del texto es: "+ Float.parseFloat(textField.getText()));
 					
-					
 					Controller.transfer(Controller.getBlockchain().getWallet().get(0), Controller.getBlockchain().getWallet().get(1), Float.parseFloat(textField.getText()));
 				}
 			}
@@ -125,8 +124,8 @@ public class Wallets {
 		
 		textField.setColumns(10);
 		
-	      PlainDocument doc = (PlainDocument) textField.getDocument();
-	      doc.setDocumentFilter(new MyIntFilter());
+	    PlainDocument doc = (PlainDocument) textField.getDocument();
+	    doc.setDocumentFilter(new MyIntFilter());
 	}
 	
 	public JFrame getFrame() {
