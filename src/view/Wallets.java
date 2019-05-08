@@ -67,7 +67,7 @@ public class Wallets {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 761, 300);
+		frame.setBounds(100, 100, 790, 302);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
@@ -98,7 +98,7 @@ public class Wallets {
 		btnBuscarTransacciones.setBounds(210, 227, 198, 23);
 		frame.getContentPane().add(btnBuscarTransacciones);
 		
-		JButton btnTransfer = new JButton("Transfer");
+		JButton btnTransfer = new JButton("Transferir recurso");
 		btnTransfer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(!textField.getText().isEmpty()) {
@@ -114,7 +114,7 @@ public class Wallets {
 				}
 			}
 		});
-		btnTransfer.setBounds(289, 124, 89, 23);
+		btnTransfer.setBounds(289, 124, 173, 23);
 		frame.getContentPane().add(btnTransfer);
 		
 	    comboBox = new JComboBox<String>();
@@ -125,14 +125,14 @@ public class Wallets {
 		}
 		
 	    comboBox_1 = new JComboBox<String>();
-		comboBox_1.setBounds(400, 93, 250, 20);
+		comboBox_1.setBounds(482, 93, 250, 20);
 		frame.getContentPane().add(comboBox_1);
 		for(int i=0;i<Controller.getBlockchain().getWallet().size();i++) {
 			comboBox_1.addItem(Controller.getBlockchain().getWallet().get(i).getID());
 		}
 		
 		textField = new JTextField();
-		textField.setBounds(289, 93, 86, 20);
+		textField.setBounds(329, 93, 89, 20);
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
 		lblValorDeLa = new JLabel("Dinero en la cartera");
@@ -140,23 +140,23 @@ public class Wallets {
 		frame.getContentPane().add(lblValorDeLa);
 		
 		lblValororigen = new JLabel("ValorOrigen");
-		lblValororigen.setBounds(148, 128, 46, 14);
+		lblValororigen.setBounds(111, 128, 46, 14);
 		frame.getContentPane().add(lblValororigen);
 		
 		lblCarteraDeOrigen = new JLabel("Cartera de origen");
-		lblCarteraDeOrigen.setBounds(10, 68, 135, 14);
+		lblCarteraDeOrigen.setBounds(65, 68, 135, 14);
 		frame.getContentPane().add(lblCarteraDeOrigen);
 		
 		lblCarteraDeDestino = new JLabel("Cartera de destino");
-		lblCarteraDeDestino.setBounds(400, 68, 106, 14);
+		lblCarteraDeDestino.setBounds(533, 68, 106, 14);
 		frame.getContentPane().add(lblCarteraDeDestino);
 		
 		lblValorDeLa_1 = new JLabel("Dinero en la cartera");
-		lblValorDeLa_1.setBounds(410, 128, 114, 14);
+		lblValorDeLa_1.setBounds(492, 128, 114, 14);
 		frame.getContentPane().add(lblValorDeLa_1);
 		
 		lblValordestino = new JLabel("ValorDestino");
-		lblValordestino.setBounds(568, 128, 46, 14);
+		lblValordestino.setBounds(593, 128, 46, 14);
 		frame.getContentPane().add(lblValordestino);
 		
 	    PlainDocument doc = (PlainDocument) textField.getDocument();

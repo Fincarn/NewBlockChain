@@ -70,6 +70,7 @@ public class BlockChain {
 		tablePanel.add(table.getTableHeader(), BorderLayout.NORTH);
 		table.getTableHeader().setReorderingAllowed(false);;
 		scrollPane.setViewportView(table);
+		
 		fillTable(model);
 		JComboBox<String> comboBox = new JComboBox<String>();
 		comboBox.setBounds(47, 11, 283, 20);
@@ -86,7 +87,7 @@ public class BlockChain {
 				fillTableSearch(model,comboBox.getSelectedIndex());
 			}
 		});
-		btnBusqueda.setBounds(340, 10, 89, 23);
+		btnBusqueda.setBounds(340, 10, 116, 23);
 		frame.getContentPane().add(btnBusqueda);
 		JButton btnReset = new JButton("Reset");
 		btnReset.addActionListener(new ActionListener() {
