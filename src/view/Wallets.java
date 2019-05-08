@@ -12,9 +12,14 @@ import javax.swing.text.Document;
 import javax.swing.text.DocumentFilter;
 import javax.swing.text.PlainDocument;
 
+import javax.swing.JOptionPane;
+
 import controller.NewBlockChainController;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JLabel;
 
 public class Wallets {
 
@@ -23,14 +28,15 @@ public class Wallets {
 	private NewBlockChainController Controller;
 	private JComboBox<String> comboBox;
 	private JComboBox<String> comboBox_1;
+	private JLabel lblValorDeLa;
+	private JLabel lblValororigen;
+	private JLabel lblCarteraDeOrigen;
+	private JLabel lblCarteraDeDestino;
+	private JLabel lblValorDeLa_1;
+	private JLabel lblValordestino;
 	
 	public Wallets(NewBlockChainController Controller) {
 		this.Controller = Controller;
-		System.out.println("Hay Bloques: "+ Controller.getBlockchain().getBlock().size());
-		System.out.println(" Bloques 1: "+ Controller.getBlockchain().getBlock().get(0).getTransactions().get(0).getValue());
-		System.out.println(" Bloques 2: "+ Controller.getBlockchain().getBlock().get(1).getTransactions().get(0).getValue());
-		System.out.println(" Bloques 3: "+ Controller.getBlockchain().getBlock().get(2));
-		System.out.println(" Bloques 4: "+ Controller.getBlockchain().getBlock().get(3).getTransactions().get(0).getValue());
 		initialize();
 	}
 	/**
@@ -65,8 +71,8 @@ public class Wallets {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JButton btnCreateNewWallet = new JButton("Create New Wallet");
-		btnCreateNewWallet.addActionListener(new ActionListener() {
+		JButton btnCrearNuevaCartera = new JButton("Crear Nueva Cartera");
+		btnCrearNuevaCartera.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Controller.getBlockchain().addWallet();
 				
@@ -77,27 +83,34 @@ public class Wallets {
 				
 			}
 		});
-		btnCreateNewWallet.setBounds(10, 227, 135, 23);
-		frame.getContentPane().add(btnCreateNewWallet);
+		btnCrearNuevaCartera.setBounds(10, 227, 190, 23);
+		frame.getContentPane().add(btnCrearNuevaCartera);
 		
-		JButton btnSearchTransactions = new JButton("Search Transactions");
-		btnSearchTransactions.addActionListener(new ActionListener() {
+		JButton btnBuscarTransacciones = new JButton("Buscar Transacciones");
+		btnBuscarTransacciones.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			    BlockChain BlockChainView=new BlockChain(Controller);
 			    BlockChainView.getFrame().setVisible(true);
+			    frame.setVisible(false);
 			}
 		});
 		
-		btnSearchTransactions.setBounds(155, 227, 135, 23);
-		frame.getContentPane().add(btnSearchTransactions);
+		btnBuscarTransacciones.setBounds(210, 227, 198, 23);
+		frame.getContentPane().add(btnBuscarTransacciones);
 		
 		JButton btnTransfer = new JButton("Transfer");
 		btnTransfer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(!textField.getText().isEmpty()) {
-					System.out.println("El valor dentro del texto es: "+ Float.parseFloat(textField.getText()));
-					
-					Controller.transfer(Controller.getBlockchain().getWallet().get(0), Controller.getBlockchain().getWallet().get(1), Float.parseFloat(textField.getText()));
+					if(comboBox.getSelectedIndex()!=comboBox_1.getSelectedIndex()) {
+					Controller.transfer(Controller.getWallet(comboBox.getSelectedIndex()), Controller.getWallet(comboBox_1.getSelectedIndex()), Float.parseFloat(textField.getText()));
+					lblValororigen.setText(""+Controller.getWallet(comboBox.getSelectedIndex()).getBalance());
+					lblValordestino.setText(""+Controller.getWallet(comboBox_1.getSelectedIndex()).getBalance());
+					}else {
+						JOptionPane.showMessageDialog(frame, "No se puede transferir a la misma cartera");
+					}
+				}else {
+					JOptionPane.showMessageDialog(frame, "Por favor incluya un valor");
 				}
 			}
 		});
@@ -121,11 +134,51 @@ public class Wallets {
 		textField = new JTextField();
 		textField.setBounds(289, 93, 86, 20);
 		frame.getContentPane().add(textField);
-		
 		textField.setColumns(10);
+		lblValorDeLa = new JLabel("Dinero en la cartera");
+		lblValorDeLa.setBounds(10, 128, 135, 14);
+		frame.getContentPane().add(lblValorDeLa);
+		
+		lblValororigen = new JLabel("ValorOrigen");
+		lblValororigen.setBounds(148, 128, 46, 14);
+		frame.getContentPane().add(lblValororigen);
+		
+		lblCarteraDeOrigen = new JLabel("Cartera de origen");
+		lblCarteraDeOrigen.setBounds(10, 68, 135, 14);
+		frame.getContentPane().add(lblCarteraDeOrigen);
+		
+		lblCarteraDeDestino = new JLabel("Cartera de destino");
+		lblCarteraDeDestino.setBounds(400, 68, 106, 14);
+		frame.getContentPane().add(lblCarteraDeDestino);
+		
+		lblValorDeLa_1 = new JLabel("Dinero en la cartera");
+		lblValorDeLa_1.setBounds(410, 128, 114, 14);
+		frame.getContentPane().add(lblValorDeLa_1);
+		
+		lblValordestino = new JLabel("ValorDestino");
+		lblValordestino.setBounds(568, 128, 46, 14);
+		frame.getContentPane().add(lblValordestino);
 		
 	    PlainDocument doc = (PlainDocument) textField.getDocument();
 	    doc.setDocumentFilter(new MyIntFilter());
+	    
+		lblValororigen.setText(""+Controller.getWallet(comboBox.getSelectedIndex()).getBalance());
+		lblValordestino.setText(""+Controller.getWallet(comboBox_1.getSelectedIndex()).getBalance());
+	    
+	    ItemListener itemListener = new ItemListener() {
+	        public void itemStateChanged(ItemEvent itemEvent) {
+	        	lblValororigen.setText(""+Controller.getWallet(comboBox.getSelectedIndex()).getBalance());
+	        }
+	      };
+	    comboBox.addItemListener(itemListener);
+	      
+		ItemListener itemListener2 = new ItemListener() {
+		    public void itemStateChanged(ItemEvent itemEvent) {
+		        lblValordestino.setText(""+Controller.getWallet(comboBox_1.getSelectedIndex()).getBalance());
+		    }
+		 };
+		comboBox_1.addItemListener(itemListener2);
+	    
 	}
 	
 	public JFrame getFrame() {
@@ -145,6 +198,7 @@ public class Wallets {
 		      if (test(sb.toString())) {
 		         super.insertString(fb, offset, string, attr);
 		      } else {
+		    	  JOptionPane.showMessageDialog(frame, "No se permite insertar valores no numericos");
 		         // warn the user and don't allow the insert
 		      }
 		   }
@@ -183,13 +237,25 @@ public class Wallets {
 		      sb.append(doc.getText(0, doc.getLength()));
 		      sb.delete(offset, offset + length);
 
-		      if (test(sb.toString())) {
-		         super.remove(fb, offset, length);
+		      if(sb.toString().length() == 0)
+		      {
+		    	  super.replace(fb, offset, length, "", null); 
 		      } else {
-		         // warn the user and don't allow the insert
+		    		  if (test(sb.toString())) {
+		    			  super.remove(fb, offset, length); 
+		    		  } else {
+		    			  // warn the user and don't allow the insert 
+		    		  } 
 		      }
-
-		   }
+		      
+		   }//End of throw
 		}
-
+	
+	
+	
+	
+	
+	
+	
+	
 }

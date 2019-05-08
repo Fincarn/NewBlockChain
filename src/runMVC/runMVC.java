@@ -24,10 +24,10 @@ public class runMVC {
 		Wallet coinbase = new Wallet();
 		
 		//create genesis transaction, which sends 100 NoobCoin to walletA: 
-		BlockChain.genesisTransaction = new Transaction(coinbase.publicKey, BlockChain.getWallet().get(0).publicKey, 900f, null);
-		BlockChain.genesisTransaction.generateSignature(coinbase.privateKey);	 //manually sign the genesis transaction	
+		BlockChain.genesisTransaction = new Transaction(coinbase.getPublicKey(), BlockChain.getWallet().get(0).getPublicKey(), 900f, null);
+		BlockChain.genesisTransaction.generateSignature(coinbase.getPrivateKey());	 //manually sign the genesis transaction	
 		BlockChain.genesisTransaction.transactionId = "0"; //manually set the transaction id
-		BlockChain.genesisTransaction.outputs.add(new TransactionOutput(BlockChain.genesisTransaction.reciepient, BlockChain.genesisTransaction.getValue(), BlockChain.genesisTransaction.transactionId)); //manually add the Transactions Output
+		BlockChain.genesisTransaction.outputs.add(new TransactionOutput(BlockChain.genesisTransaction.getReciepient(), BlockChain.genesisTransaction.getValue(), BlockChain.genesisTransaction.transactionId)); //manually add the Transactions Output
 		BlockChain.UTXOs.put(BlockChain.genesisTransaction.outputs.get(0).id, BlockChain.genesisTransaction.outputs.get(0)); //its important to store our first transaction in the UTXOs list.
 		
 		System.out.println("Creating and Mining Genesis block... ");
@@ -41,21 +41,21 @@ public class runMVC {
 		System.out.println("WalletB's balance is: " + BlockChain.getWallet().get(1).getBalance());
 		
 		System.out.println("\nWalletA is Attempting to send funds (40) to WalletB...");
-		block1.addTransaction(BlockChain.getWallet().get(0).sendFunds(BlockChain.getWallet().get(1).publicKey, 40f));
+		block1.addTransaction(BlockChain.getWallet().get(0).sendFunds(BlockChain.getWallet().get(1).getPublicKey(), 40f));
 		BlockChain.addBlock(block1);
 		System.out.println("\nWalletA's balance is: " + BlockChain.getWallet().get(0).getBalance());
 		System.out.println("WalletB's balance is: " + BlockChain.getWallet().get(1).getBalance());
 		
 		Block block2 = new Block(block1.hash);
 		System.out.println("\nWalletA Attempting to send more funds (1000) than it has...");
-		block2.addTransaction(BlockChain.getWallet().get(0).sendFunds(BlockChain.getWallet().get(1).publicKey, 5f));
+		block2.addTransaction(BlockChain.getWallet().get(1).sendFunds(BlockChain.getWallet().get(0).getPublicKey(), 1000f));
 		BlockChain.addBlock(block2);
 		System.out.println("\nWalletA's balance is: " + BlockChain.getWallet().get(0).getBalance());
 		System.out.println("WalletB's balance is: " + BlockChain.getWallet().get(1).getBalance());
 		
 		Block block3 = new Block(block2.hash);
 		System.out.println("\nWalletB is Attempting to send funds (20) to WalletA...");
-		block3.addTransaction(BlockChain.getWallet().get(1).sendFunds( BlockChain.getWallet().get(0).publicKey, 20f));
+		block3.addTransaction(BlockChain.getWallet().get(1).sendFunds( BlockChain.getWallet().get(0).getPublicKey(), 20f));
 		BlockChain.addBlock(block3);
 		System.out.println("\nWalletA's balance is: " + BlockChain.getWallet().get(0).getBalance());
 		System.out.println("WalletB's balance is: " + BlockChain.getWallet().get(1).getBalance());

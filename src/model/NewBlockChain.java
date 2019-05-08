@@ -6,16 +6,11 @@ import java.util.HashMap;
 public class NewBlockChain {
 
 	private  ArrayList<Block> blockchain = new ArrayList<Block>();
-
-
-
 	private  ArrayList<Wallet> wallet=new ArrayList<Wallet>();
 	public  int difficulty = 3;
 	public  Transaction genesisTransaction;
-	
 	public  static HashMap<String,TransactionOutput> UTXOs = new HashMap<String,TransactionOutput>();
 	public  static float minimumTransaction = 0.1f;
-
 
 	public  Boolean isChainValid() {
 		Block currentBlock; 
@@ -87,11 +82,11 @@ public class NewBlockChain {
 					tempUTXOs.put(output.id, output);
 				}
 				
-				if( currentTransaction.outputs.get(0).reciepient != currentTransaction.reciepient) {
+				if( currentTransaction.outputs.get(0).reciepient != currentTransaction.getReciepient()) {
 					System.out.println("#Transaction(" + t + ") output reciepient is not who it should be");
 					return false;
 				}
-				if( currentTransaction.outputs.get(1).reciepient != currentTransaction.sender) {
+				if( currentTransaction.outputs.get(1).reciepient != currentTransaction.getSender()) {
 					System.out.println("#Transaction(" + t + ") output 'change' is not sender.");
 					return false;
 				}

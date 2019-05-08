@@ -5,16 +5,13 @@ import java.util.ArrayList;
 public class Transaction {
 	
 	public String transactionId; // this is also the hash of the transaction.
-	public PublicKey sender; // senders address/public key.
-	public PublicKey reciepient; // Recipients address/public key.
+
+	private PublicKey sender; // senders address/public key.
+	private PublicKey reciepient; // Recipients address/public key.
 	private float value;
-
-
 	public byte[] signature; // this is to prevent anybody else from spending funds in our wallet.
-	
 	public ArrayList<TransactionInput> inputs = new ArrayList<TransactionInput>();
 	public ArrayList<TransactionOutput> outputs = new ArrayList<TransactionOutput>();
-	
 	private static int sequence = 0; // a rough count of how many transactions have been generated. 
 	
 	// Constructor: 
@@ -112,4 +109,21 @@ public class Transaction {
 	public void setValue(float value) {
 		this.value = value;
 	}
+	
+	public PublicKey getSender() {
+		return sender;
+	}
+
+	public void setSender(PublicKey sender) {
+		this.sender = sender;
+	}
+
+	public PublicKey getReciepient() {
+		return reciepient;
+	}
+
+	public void setReciepient(PublicKey reciepient) {
+		this.reciepient = reciepient;
+	}
+
 }
